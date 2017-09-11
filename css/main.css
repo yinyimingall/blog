@@ -1819,7 +1819,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #12db13;
+  background: #5ef2ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2663,6 +2663,12 @@ embed {
   background-color: #eaa877;
   border-radius: 3px;
 }
+hr {
+  background-color: #eaa877;
+  background-image: none;
+  margin-top: 20px;
+  height: 2px;
+}
 .sidebar-toggle {
   background-color: #eaa877;
 }
@@ -2672,4 +2678,25 @@ embed {
 body {
   color: #1f375b;
   font-size: 16px;
+}
+.tag-cloud-tags a {
+  color: #eaa877 !important;
+}
+.posts-expand .post-eof {
+  width: 12%;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+.post-footer {
+  margin: 80px;
+  text-align: center;
+}
+.post-footer:before {
+  content: 'ξ';
+  margin: 1em;
+}
+.post-footer:after {
+  content: 'ξ';
+  margin: 1em;
 }

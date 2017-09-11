@@ -79,7 +79,7 @@
 <link href="/blog/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JSON,JavaScript," />
 
 
 
@@ -95,17 +95,18 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="引： 在使用 Ajax 请求时，有时需要传递一个复杂的对象给后端，此时需要使用 .stringify() 这个全局内置函数将对象序列化成 JSON 字符串，再传递给后端。如果这个要被序列化的对象被循环引用了，则序列化将会报错。  正文：一、什么是循环引用 12345var obj = &amp;#123;  child: &amp;#123;&amp;#125;&amp;#125;obj.child = obj;JSON.str">
+<meta name="keywords" content="JSON,JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://yinyimingall.github.io/blog/2017/09/10/hello-world/index.html">
+<meta property="og:title" content="JSON.stringify() 序列化循环引用对象出错">
+<meta property="og:url" content="https://yinyimingall.github.io/blog/2017/09/11/circle-json/index.html">
 <meta property="og:site_name" content="Martin Yin&#39;s blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="引： 在使用 Ajax 请求时，有时需要传递一个复杂的对象给后端，此时需要使用 .stringify() 这个全局内置函数将对象序列化成 JSON 字符串，再传递给后端。如果这个要被序列化的对象被循环引用了，则序列化将会报错。  正文：一、什么是循环引用 12345var obj = &amp;#123;  child: &amp;#123;&amp;#125;&amp;#125;obj.child = obj;JSON.str">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-10T13:24:19.668Z">
+<meta property="og:updated_time" content="2017-09-11T04:15:00.349Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="JSON.stringify() 序列化循环引用对象出错">
+<meta name="twitter:description" content="引： 在使用 Ajax 请求时，有时需要传递一个复杂的对象给后端，此时需要使用 .stringify() 这个全局内置函数将对象序列化成 JSON 字符串，再传递给后端。如果这个要被序列化的对象被循环引用了，则序列化将会报错。  正文：一、什么是循环引用 12345var obj = &amp;#123;  child: &amp;#123;&amp;#125;&amp;#125;obj.child = obj;JSON.str">
 
 
 
@@ -135,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://yinyimingall.github.io/blog/2017/09/10/hello-world/"/>
+  <link rel="canonical" href="https://yinyimingall.github.io/blog/2017/09/11/circle-json/"/>
 
 
 
 
 
-  <title>Hello World | Martin Yin's blog</title>
+  <title>JSON.stringify() 序列化循环引用对象出错 | Martin Yin's blog</title>
   
 
 
@@ -278,7 +279,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yinyimingall.github.io/blog/blog/2017/09/10/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://yinyimingall.github.io/blog/blog/2017/09/11/circle-json/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Martin Yin">
@@ -295,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">JSON.stringify() 序列化循环引用对象出错</h1>
         
 
         <div class="post-meta">
@@ -307,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-10T21:24:19+08:00">
-                2017-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-11T11:47:34+08:00">
+                2017-09-11
               </time>
             
 
@@ -317,6 +318,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -345,16 +368,24 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+        <h2 id="引："><a href="#引：" class="headerlink" title="引："></a><strong>引：</strong></h2><blockquote>
+<p>在使用 Ajax 请求时，有时需要传递一个复杂的对象给后端，此时需要使用 .stringify() 这个全局内置函数将对象序列化成 JSON 字符串，再传递给后端。如果这个要被序列化的对象被循环引用了，则序列化将会报错。</p>
+</blockquote>
+<h2 id="正文："><a href="#正文：" class="headerlink" title="正文："></a><strong>正文：</strong></h2><h2 id="一、什么是循环引用"><a href="#一、什么是循环引用" class="headerlink" title="一、什么是循环引用"></a>一、什么是循环引用</h2><hr>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">  child: &#123;&#125;</div><div class="line">&#125;</div><div class="line">obj.child = obj;</div><div class="line"><span class="built_in">JSON</span>.stringify(obj); <span class="comment">// Uncaught TypeError: Converting circular structure to JSON</span></div></pre></td></tr></table></figure>
+<p>obj.two 引用了 obj 自身。这导致序列化时出现无限循环，所以执行 JSON.stringify() 方法时出现因为对象的循环引用而无法序列化对象的错误。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [];</div><div class="line">arr[<span class="number">0</span>] = arr;</div><div class="line"><span class="built_in">JSON</span>.stringify(arr); <span class="comment">// Uncaught TypeError: Converting circular structure to JSON</span></div></pre></td></tr></table></figure>
+<p>数组也是引用类型，所以 arr 第一个元素 arr[0] 引用 arr 本身，出现无限循环的结构。导致序列化失败。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj_1 = &#123;</div><div class="line">  childOne: &#123;&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj_2 = &#123;</div><div class="line">  childTwo: &#123;&#125;</div><div class="line">&#125;</div><div class="line">obj_1.childOne = obj_2;</div><div class="line">obj_2.childTwo = obj_1;</div><div class="line"><span class="built_in">JSON</span>.stringify(obj_1); <span class="comment">// Uncaught TypeError: Converting circular structure to JSON</span></div><div class="line"><span class="built_in">JSON</span>.stringify(obj_2); <span class="comment">// Uncaught TypeError: Converting circular structure to JSON</span></div></pre></td></tr></table></figure>
+<p>obj_1.two 引用了 obj_2 ，obj_2.two 引用了 obj_1 。执行 JSON.stringify(obj_1) 时， 会序列化 obj_1.two 引用的 obj_2 ， 而 obj_2.two 又引用 obj_1 。这样导致循环引用。所以当两个对象相互引用对方，不管序列化哪个对象，这个对象都会因为循环引用序列化失败。</p>
+<p>将两个独立的对象放到一个对象中进行循环引用是一样的，如下代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">  one: &#123;</div><div class="line">    childOne: &#123;&#125;</div><div class="line">  &#125;,</div><div class="line">  two: &#123;</div><div class="line">    childTwo: &#123;&#125;</div><div class="line">  &#125;	</div><div class="line">&#125;</div><div class="line">obj.one.childOne = obj.two;</div><div class="line">obj.two.childTwo = obj.one;</div><div class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// 可看到 obj 的结构中出现循环引用</span></div><div class="line"><span class="built_in">JSON</span>.stringfiy(obj); <span class="comment">// Uncaught TypeError: Converting circular structure to JSON</span></div></pre></td></tr></table></figure>
+<p>那么循环引用就是一个对象自身的属性中出现引用这个对象本身的现象。导致对象某个结构的无限循环。取序列化这个无限循环的对象，当然就会出错。</p>
+<h2 id="二、序列化循环引用对象"><a href="#二、序列化循环引用对象" class="headerlink" title="二、序列化循环引用对象"></a>二、序列化循环引用对象</h2><hr>
+<p>如果这个对象就是存在循环引用的，想序列化这个对象，可以参考<a href="https://github.com/douglascrockford/JSON-js" target="_blank" rel="external"> JSON-js 库中的 cycle.js </a> 。同时这个库也可将序列化的循环引用对象反序列化为原对象。</p>
+<h2 id="三、Ajax-传递给后台的参数循环引用如何解决"><a href="#三、Ajax-传递给后台的参数循环引用如何解决" class="headerlink" title="三、Ajax 传递给后台的参数循环引用如何解决"></a>三、Ajax 传递给后台的参数循环引用如何解决</h2><hr>
+<p>一般我们给后台的数据不应该出现循环引用问题。但是当对象、数组嵌套过多时，出现了循环引用的问题导致无法 JSON.stringify() 序列化。这时又很难找到循环引用的对象。一种解决方案就是使用 jQuery 中 $.extent() 方法将这个对象中的每个引用类型的对象都深拷贝一份新的对象，赋值给原对象属性。这也不失为一种解决方法。</p>
+<h3 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a><strong>The End</strong></h3>
       
     </div>
     
@@ -369,6 +400,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/blog/tags/JSON/" rel="tag"># JSON</a>
+          
+            <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
 
       
       
@@ -378,15 +417,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/blog/2017/09/10/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2017/09/11/circle-json/" rel="prev" title="JSON.stringify() 序列化循环引用对象出错">
-                JSON.stringify() 序列化循环引用对象出错 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -519,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引："><span class="nav-number">1.</span> <span class="nav-text">引：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文："><span class="nav-number">2.</span> <span class="nav-text">正文：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、什么是循环引用"><span class="nav-number">3.</span> <span class="nav-text">一、什么是循环引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、序列化循环引用对象"><span class="nav-number">4.</span> <span class="nav-text">二、序列化循环引用对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Ajax-传递给后台的参数循环引用如何解决"><span class="nav-number">5.</span> <span class="nav-text">三、Ajax 传递给后台的参数循环引用如何解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-End"><span class="nav-number">5.1.</span> <span class="nav-text">The End</span></a></li></ol></li></ol></div>
             
 
           </div>
