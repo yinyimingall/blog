@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,NodeJS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="引： 刚开始学习 Node.js 无从下手，我们可以使用 Node.js 来写什么？目前前端都已经趋于工程化，基于模块化开发，大量依赖包，这时 Node.js 成为了构建前端项目的工具。由于 Node.js 是一门后端语言，所以它可以写后端语言可以写的服务器应用。当然 Node.js 也可写命令行工具。本文从 Web 应用入手，使用 Node.js 构建一个基本 Web 应用  正文：一、一个 W">
+<meta name="keywords" content="JavaScript,NodeJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Node.js 写出一个 web 应用最基本的骨架">
+<meta property="og:url" content="https://yinyimingall.github.io/blog/2017/09/25/start-nodejs/index.html">
+<meta property="og:site_name" content="Martin Yin&#39;s blog">
+<meta property="og:description" content="引： 刚开始学习 Node.js 无从下手，我们可以使用 Node.js 来写什么？目前前端都已经趋于工程化，基于模块化开发，大量依赖包，这时 Node.js 成为了构建前端项目的工具。由于 Node.js 是一门后端语言，所以它可以写后端语言可以写的服务器应用。当然 Node.js 也可写命令行工具。本文从 Web 应用入手，使用 Node.js 构建一个基本 Web 应用  正文：一、一个 W">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T08:47:54.269Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 Node.js 写出一个 web 应用最基本的骨架">
+<meta name="twitter:description" content="引： 刚开始学习 Node.js 无从下手，我们可以使用 Node.js 来写什么？目前前端都已经趋于工程化，基于模块化开发，大量依赖包，这时 Node.js 成为了构建前端项目的工具。由于 Node.js 是一门后端语言，所以它可以写后端语言可以写的服务器应用。当然 Node.js 也可写命令行工具。本文从 Web 应用入手，使用 Node.js 构建一个基本 Web 应用  正文：一、一个 W">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yinyimingall.github.io/blog/2017/09/25/start-nodejs/"/>
+
+
+
+
+
+  <title>使用 Node.js 写出一个 web 应用最基本的骨架 | Martin Yin's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Martin Yin's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yinyimingall.github.io/blog/blog/2017/09/25/start-nodejs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Martin Yin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Martin Yin's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用 Node.js 写出一个 web 应用最基本的骨架</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T11:01:17+08:00">
+                2017-09-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/NodeJS/" itemprop="url" rel="index">
+                    <span itemprop="name">NodeJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引："><a href="#引：" class="headerlink" title="引："></a><strong>引：</strong></h2><blockquote>
+<p>刚开始学习 Node.js 无从下手，我们可以使用 Node.js 来写什么？目前前端都已经趋于工程化，基于模块化开发，大量依赖包，这时 Node.js 成为了构建前端项目的工具。由于 Node.js 是一门后端语言，所以它可以写后端语言可以写的服务器应用。当然 Node.js 也可写命令行工具。本文从 Web 应用入手，使用 Node.js 构建一个基本 Web 应用</p>
+</blockquote>
+<h2 id="正文："><a href="#正文：" class="headerlink" title="正文："></a><strong>正文：</strong></h2><h2 id="一、一个-Web-服务需要哪些基本模块"><a href="#一、一个-Web-服务需要哪些基本模块" class="headerlink" title="一、一个 Web 服务需要哪些基本模块"></a>一、一个 Web 服务需要哪些基本模块</h2><hr>
+<p>当然是先要有个 http 服务器了，有了服务器后我们就可以响应浏览器的请求。当请求多了，这时我们需要根据不同请求返回不同响应，区别不同的请求就需要路由了，有了路由我们还得为不同的请求分配给不同的处理程序，最后<br>返回给浏览器。我们给这三个模块起个名字方便后续命名文件。</p>
+<ul>
+<li>http 服务器（server.js）</li>
+<li>路由（router.js）</li>
+<li>请求处理程序（reqHandlers.js）</li>
+</ul>
+<p>三个模块构成了我们 web 最小应用，那么使用 Node.js 开发 web 应用怎么组织文件呢。通常我们的应用都需要一个主文件，一般命名为 index.js ，当然使用 app.js 等其他名字也是可以的，这个入口文件一般没有逻辑代码，而是将各种 Node.js 模块组织起来，让这些模块协同工作。</p>
+<p>所以我们可以知道，我们的 web 应用文件结构会是</p>
+<p>+firstnodeweb<br> | index.js<br> | server.js<br> | router.js<br> | reqHandlers.js</p>
+<p>接下来我们逐个写每个模块</p>
+<h2 id="二、简单的-HTTP-服务器"><a href="#二、简单的-HTTP-服务器" class="headerlink" title="二、简单的 HTTP 服务器"></a>二、简单的 HTTP 服务器</h2><hr>
+<p>使用 Node.js 写一个 web 服务器很简单，新建一个 server.js 文件，代码如下，在目录下执行 <code>node server.js</code> ，使用浏览器访问 <code>localhost:3000</code> 我们就会看到 Hello World 了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// server.js</span></div><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">request, response</span>)</span>&#123;</div><div class="line">  response.writeHead(<span class="number">200</span>,  &#123;<span class="string">"Content-Type"</span>:  <span class="string">"text/plain"</span>&#125;);</div><div class="line">  response.write(<span class="string">"Hello World"</span>);</div><div class="line">  response.end();</div><div class="line">&#125;).listen(<span class="number">3000</span>);</div></pre></td></tr></table></figure>
+<p>这段代码首先引入 node 内置的 http 模块，使用此模块创建一个 http 服务器。这个服务器会监听 3000 端口，每当请求这个端口时就会调用 createServer() 中的回掉函数，通过回掉函数写入 http 的响应头，写入响应体发送给浏览器。至此，从浏览器请求到服务器监听端口，处理请求到返回请求到浏览器的整个过程就结束了。</p>
+<h2 id="三、通过-index-js-主文件组织所有模块"><a href="#三、通过-index-js-主文件组织所有模块" class="headerlink" title="三、通过 index.js 主文件组织所有模块"></a>三、通过 index.js 主文件组织所有模块</h2><hr>
+<h3 id="1、主文件-index-js"><a href="#1、主文件-index-js" class="headerlink" title="1、主文件 index.js"></a>1、主文件 index.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// index.js</span></div><div class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">'./server'</span>);</div><div class="line"><span class="keyword">var</span> router = <span class="built_in">require</span>(<span class="string">'./router'</span>);</div><div class="line"><span class="keyword">var</span> reqHandlers = <span class="built_in">require</span>(<span class="string">'./reqHandlers'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> handleMap= &#123;</div><div class="line">  <span class="string">'/'</span>: reqHandlers.login,</div><div class="line">  <span class="string">'/welcome'</span>: reqHandlers.welcome</div><div class="line">&#125;</div><div class="line">server.start(router.route, handleMap);</div></pre></td></tr></table></figure>
+<p>主文件将服务器模块、路由模块、请求处理程序模块全部引入。同时还需要一个 handleMap 来配置路由与处理程序的映射关系，使用 server.start() 开启服务器，同时把路由函数与路由映射对象传递给 server 模块。</p>
+<h3 id="2、服务器模块-server-js"><a href="#2、服务器模块-server-js" class="headerlink" title="2、服务器模块 server.js"></a>2、服务器模块 server.js</h3><p>前面我们已经了解了简单 HTTP 服务器的写法，这里只是在简单写法上做些改变。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// server.js</span></div><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">'url'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params">route, handleMap</span>)</span>&#123;</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">onRequest</span>(<span class="params">req, res</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> postData = <span class="string">''</span>;</div><div class="line">    <span class="keyword">var</span> pathname = url.parse(req.url).pathname;</div><div class="line">    req.setEncoding(<span class="string">'utf8'</span>);</div><div class="line">	req.addListener(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">postDataChunk</span>)</span>&#123;</div><div class="line">      postData += postDataChunk;</div><div class="line">    &#125;);</div><div class="line">    req.addListener(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	  route(pathname, handleMap, req, res, postData);</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">  http.createServer(onRequest).listen(<span class="number">3000</span>);</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Server has started. Greet!'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">exports.start = start;</div></pre></td></tr></table></figure>
+<p>引入 url 模块用于解析请求回掉函数中第一个参数 req 中的数据。在 onRequest 函数中，首先解析出请求的路径名，再设置 utf-8 编码，然后监听用于 post 请求携带的数据 data，发送过来的数据是一数据块的形式传递给回掉函数中的 postDataChunk 参数，我们将数据块全部加到 postData上， 最后监听请求结束后执行我们的路由器函数。</p>
+<h3 id="3、路由模块-router-js"><a href="#3、路由模块-router-js" class="headerlink" title="3、路由模块 router.js"></a>3、路由模块 router.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// router.js</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">route</span>(<span class="params">pathname, handleMap, req, res, postData</span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(<span class="keyword">typeof</span> handleMap[pathname] === <span class="string">'function'</span>)&#123;</div><div class="line">    handleMap[pathname](req, res, postData);</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</div><div class="line">	res.write(<span class="string">'404 Not Found'</span>);</div><div class="line">	res.end();</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div><div class="line">exports.route = route;</div></pre></td></tr></table></figure>
+<p>路由模块用于解析传入路由路径，并执行相匹配的请求处理函数，如果没有匹配的路由就返回 404 Not Found。</p>
+<h3 id="4、路由请求处理程序模块-reqHandlers-js"><a href="#4、路由请求处理程序模块-reqHandlers-js" class="headerlink" title="4、路由请求处理程序模块 reqHandlers.js"></a>4、路由请求处理程序模块 reqHandlers.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// reqHandlers.js</span></div><div class="line"><span class="keyword">var</span> querystring = <span class="built_in">require</span>(<span class="string">'querystring'</span>);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">req, res</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> body =  </div><div class="line"><span class="string">'&lt;html&gt;'</span>+ </div><div class="line"><span class="string">'&lt;head&gt;'</span>+</div><div class="line"><span class="string">'&lt;meta http-equiv="Content-Type" content="text/html; '</span>+</div><div class="line"><span class="string">'charset=UTF-8" /&gt;'</span>+  </div><div class="line"><span class="string">'&lt;/head&gt;'</span>+ </div><div class="line"><span class="string">'&lt;body&gt;'</span>+ </div><div class="line"><span class="string">'&lt;form action="/welcome" method="post"&gt;'</span>+ </div><div class="line"><span class="string">'&lt;input name="username"&gt;&lt;/input&gt;'</span>+</div><div class="line"><span class="string">'&lt;input type="submit" value="进入" /&gt;'</span>+</div><div class="line"><span class="string">'&lt;/form&gt;'</span>+</div><div class="line"><span class="string">'&lt;/body&gt;'</span>+</div><div class="line"><span class="string">'&lt;/html&gt;'</span>; </div><div class="line"></div><div class="line">  res.writeHead(<span class="number">200</span>,  &#123;<span class="string">"Content-Type"</span>:  <span class="string">"text/html"</span>&#125;);</div><div class="line">  res.write(body);</div><div class="line">  res.end();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">welcome</span>(<span class="params">req, res, postData</span>)</span>&#123;</div><div class="line">  res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-Type'</span>:  <span class="string">'text/plain;charset=utf8;'</span>&#125;);</div><div class="line">  res.write(<span class="string">'欢迎你，'</span> + querystring.parse(postData).username);</div><div class="line">  res.end();</div><div class="line">&#125;</div><div class="line"></div><div class="line">exports.login = login;</div><div class="line">exports.welcome = welcome;</div></pre></td></tr></table></figure>
+<p>对应与 index.js 中的 handleMap 映射对象，写出相应的处理函数，最终返回请求。</p>
+<h2 id="四、尾声"><a href="#四、尾声" class="headerlink" title="四、尾声"></a>四、尾声</h2><p>我们通过 index.js 主文件整合了服务器模块、路由模块、请求处理模块。server.start(route, handleMap) 传入了路由函数（决定某个路由执行某个函数）与路由映射对象。 route(pathname, handleMap, req, res, postData) 传入了路由路径、路由映射对象、请求对象、响应对象、post 数据。handleMap<a href="req, res, postData">pathname</a> 传入请求对象、响应对象、数据给请求处理函数，最后响应请求。</p>
+<p>我们需要的对象是从 index.js 主文件一层一层传递下去的。再总结一下，一个使用 Node.js 搭建的最小 web 应用是由入口主文件、服务器模块、路由模块、请求处理模块组成。</p>
+<h3 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a><strong>The End</strong></h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/blog/tags/NodeJS/" rel="tag"># NodeJS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/09/11/circle-json/" rel="next" title="JSON.stringify() 序列化循环引用对象出错">
+                <i class="fa fa-chevron-left"></i> JSON.stringify() 序列化循环引用对象出错
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">Martin Yin</p>
+            <p class="site-description motion-element" itemprop="description">好记性不如敲键盘</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/blog/archives/">
+            
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引："><span class="nav-number">1.</span> <span class="nav-text">引：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文："><span class="nav-number">2.</span> <span class="nav-text">正文：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、一个-Web-服务需要哪些基本模块"><span class="nav-number">3.</span> <span class="nav-text">一、一个 Web 服务需要哪些基本模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、简单的-HTTP-服务器"><span class="nav-number">4.</span> <span class="nav-text">二、简单的 HTTP 服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、通过-index-js-主文件组织所有模块"><span class="nav-number">5.</span> <span class="nav-text">三、通过 index.js 主文件组织所有模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、主文件-index-js"><span class="nav-number">5.1.</span> <span class="nav-text">1、主文件 index.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、服务器模块-server-js"><span class="nav-number">5.2.</span> <span class="nav-text">2、服务器模块 server.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、路由模块-router-js"><span class="nav-number">5.3.</span> <span class="nav-text">3、路由模块 router.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、路由请求处理程序模块-reqHandlers-js"><span class="nav-number">5.4.</span> <span class="nav-text">4、路由请求处理程序模块 reqHandlers.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、尾声"><span class="nav-number">6.</span> <span class="nav-text">四、尾声</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-End"><span class="nav-number">6.1.</span> <span class="nav-text">The End</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin Yin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
